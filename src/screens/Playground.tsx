@@ -1,62 +1,66 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, FlatList, Pressable, PressableProps, Text } from 'react-native';
+import { StyleSheet, View, SafeAreaView, FlatList, Pressable, Text, } from 'react-native';
 import { useSelector } from 'react-redux';
 import { SampleSelector } from '../redux/samplesSlice';
 import { Audio } from 'expo-av';
+import { colors } from '../core/theme';
 
 
-export function Playground() {
+export default function Playground() {
   const [selectedId, setSelectedId] = useState(null);
-
-  const samples = useSelector(SampleSelector).samples;
+  const samples = useSelector(SampleSelector);
 
   const playSample = async (item) => {
     try {
-        var { } = await Audio.Sound.createAsync(
-            item.lien,
-            { shouldPlay: true }
-        );
-      } catch (error){
-          console.error(error);
+      if (item.type == "default"){
+         await Audio.Sound.createAsync(
+           item.link,
+           { shouldPlay: true }
+         );
+       console.log(item);
       }
-    };
+      else {
+         await Audio.Sound.createAsync(
+           { uri: item.link},
+           { shouldPlay: true }
+         );
+       console.log(item);
+      }
+   } catch (error){
+       console.error(error);
+   }
+};
 
   const renderItem = ({ item }) => {
-    let backgroundColor: string;
-    let color: string;
-    let borderColor: string;
-  
-  
+    let shadowColor: string;
     switch (true){
-      case item.id <= 4 && item.id === selectedId : backgroundColor = "#7B90A9", color="white", borderColor="#73A8E6"; break;
-      case item.id <= 8 && item.id === selectedId : backgroundColor = "#B37A94", color="white", borderColor="#E673A8"; break;
-      case item.id <= 12 && item.id === selectedId : backgroundColor = "#A9947B", color="white", borderColor="#E6B173"; break;
-      case item.id < 16 && item.id === selectedId: backgroundColor = "#7BA994", color="white", borderColor="#73E6B1"; break;
-      default: backgroundColor = '#2D3A44', color="white", borderColor="black";
+      case item.id <= 4 && item.id === selectedId : shadowColor=colors.blue; break;
+      case item.id <= 8 && item.id === selectedId : shadowColor=colors.red ; break;
+      case item.id <= 12 && item.id === selectedId: shadowColor=colors.yellow ;break;
+      case item.id < 16 && item.id === selectedId: shadowColor=colors.green ;break;
+      case item.type != "default" && item.id === selectedId: shadowColor=colors.green; break;
+      default: shadowColor=colors.green;
   }
   
   
-    const Item = ({ backgroundColor, textColor, borderColor }) => (
-      <Pressable onPress={() => {playSample(item), setSelectedId(item.id)}} style={[style.pad, backgroundColor, borderColor]}>
-        <Text style={[style.text, textColor]}>{item.titre}</Text>
+    const Item = ({shadowColor }) => (
+      <Pressable onPress={() => {playSample(item), setSelectedId(item.id)}} style={[styles.pad, shadowColor]}>
+        <Text style={[styles.text]}>{item.id}</Text>
       </Pressable>
     );
 
     return (
           <Item
-          backgroundColor={{ backgroundColor}}
-          textColor={{ color }}
-          borderColor={{borderColor}}
+          shadowColor={{shadowColor}}
           />
-
     );
   };
 
   return (
-    <SafeAreaView style={style.container}>
-      <View style={style.padContainer}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.viewContainer}>
         <FlatList
-          style={style.flatList}
+          style={styles.flatList}
           data={samples}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
@@ -68,39 +72,38 @@ export function Playground() {
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop:20,
-    backgroundColor: '#2D3A44',
-    width: 'auto',
+    backgroundColor: colors.background,
   },
-  padContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    width: 'auto',
+  viewContainer: {
+    height: 700
   },
   flatList:{
     width: 'auto',
-    margin: 10,
+    paddingTop: 20,
   },
   pad: {
+    backgroundColor: colors.light.background,
     borderWidth: 1,
     borderRadius: 5,
     margin: 10,
     padding: 10,
-    height: 115,
+    height: 110,
     width: 110,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
   },
   text: {
     fontSize: 15,
-  }
+    color:'white'
+  },
 });
 
