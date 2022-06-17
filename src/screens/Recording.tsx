@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, Button, Pressable} from 'react-native';
+import { View, StyleSheet, Button, Pressable, SafeAreaView, Text} from 'react-native';
 import { Audio } from 'expo-av';
 import { addSample, logout, SampleSelector } from '../redux/samplesSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -112,12 +112,14 @@ export default function Recording() {
      id: new_id_item,
      title: 'recording-' + new_id_item  + '.wav',
      link: recordsFolder + 'recording-' + new_id_item + '.wav',
-     type: "recording"
+     type: "recording",
+     image: "../../assets/image-default.jpeg"
    }));
  }
    
    return (
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Recording</Text>
      <Button
        title={IsRecording ? "Stop Recording" : "Start Recording"}
        color={IsRecording ? "red" : "green"}
@@ -145,7 +147,7 @@ export default function Recording() {
     <Button title='Delete all' onPress={() => dispatch(logout())} />
   
      
-   </View>
+   </SafeAreaView>
    );
 }
 
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   },
   recordButton: {
     borderWidth: 2,
-    borderColor: 'grey',
+    borderColor: colors.grey,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -180,4 +182,9 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  title: {
+    color: '#fff',
+    fontSize: 32,
+    fontWeight: 'bold' 
+}
 });

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, SafeAreaView, FlatList, Pressable, Text, } from 'react-native';
 import { useSelector } from 'react-redux';
 import { SampleSelector } from '../redux/samplesSlice';
-import { Audio } from 'expo-av';
+import { playSample } from '../utils/expoAudio';
 import { colors } from '../core/theme';
 
 
@@ -10,26 +10,6 @@ export default function Playground() {
   const [selectedId, setSelectedId] = useState(null);
   const samples = useSelector(SampleSelector);
 
-  const playSample = async (item) => {
-    try {
-      if (item.type == "default"){
-         await Audio.Sound.createAsync(
-           item.link,
-           { shouldPlay: true }
-         );
-       console.log(item);
-      }
-      else {
-         await Audio.Sound.createAsync(
-           { uri: item.link},
-           { shouldPlay: true }
-         );
-       console.log(item);
-      }
-   } catch (error){
-       console.error(error);
-   }
-};
 
   const renderItem = ({ item }) => {
     let shadowColor: string;
@@ -43,7 +23,7 @@ export default function Playground() {
   }
   
   
-    const Item = ({shadowColor }) => (
+    const Item = ({shadowColor}) => (
       <Pressable onPress={() => {playSample(item), setSelectedId(item.id)}} style={[styles.pad, shadowColor]}>
         <Text style={[styles.text]}>{item.id}</Text>
       </Pressable>
@@ -58,6 +38,7 @@ export default function Playground() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Playground</Text>
       <View style={styles.viewContainer}>
         <FlatList
           style={styles.flatList}
@@ -105,5 +86,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color:'white'
   },
+  title: {
+    color: '#fff',
+    fontSize: 32,
+    fontWeight: 'bold' 
+}
 });
 

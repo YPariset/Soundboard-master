@@ -4,6 +4,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import Playground from './src/screens/Playground';
 import Recording from './src/screens/Recording'
+import Library from './src/screens/Library';
 import store from './store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -38,6 +39,7 @@ export default function App() {
             }}>
               <Tab.Screen name="Playground" component={Playground} />
               <Tab.Screen name="Recording" component={Recording} />
+              <Tab.Screen name="Library" component={Library} />
             </Tab.Navigator>
           </NavigationContainer>
         </PersistGate>
