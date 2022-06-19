@@ -10,22 +10,20 @@ export default function Playground() {
   const [selectedId, setSelectedId] = useState(null);
   const samples = useSelector(SampleSelector);
 
-
   const renderItem = ({ item }) => {
     let shadowColor: string;
     switch (true){
       case item.id <= 4 && item.id === selectedId : shadowColor=colors.blue; break;
       case item.id <= 8 && item.id === selectedId : shadowColor=colors.red ; break;
       case item.id <= 12 && item.id === selectedId: shadowColor=colors.yellow ;break;
-      case item.id < 16 && item.id === selectedId: shadowColor=colors.green ;break;
-      case item.type != "default" && item.id === selectedId: shadowColor=colors.green; break;
+      case item.id < 16 && item.id === selectedId: shadowColor=colors.pink ;break;
+      case item.type != "default" && item.id === selectedId: shadowColor=colors.purlple; break;
       default: shadowColor=colors.green;
   }
   
-  
     const Item = ({shadowColor}) => (
       <Pressable onPress={() => {playSample(item), setSelectedId(item.id)}} style={[styles.pad, shadowColor]}>
-        <Text style={[styles.text]}>{item.id}</Text>
+        <Text style={[styles.text]}>{item.type}</Text>
       </Pressable>
     );
 
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color:'white'
+    color:'white',
   },
   title: {
     color: '#fff',

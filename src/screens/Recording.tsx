@@ -120,33 +120,32 @@ export default function Recording() {
    return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Recording</Text>
-     <Button
-       title={IsRecording ? "Stop Recording" : "Start Recording"}
-       color={IsRecording ? "red" : "green"}
-       onPress={IsRecording ? StopRecording : StartRecording}
-     />
-     <Button
-       title={IsPLaying ? "Stop Sound" : "Play Sound"}
-       color={IsPLaying ? "red" : "orange"}
-       onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
-     />
-      {IsRecording ? (
-          <Pressable style={[styles.recordButton]} onPress={StopRecording}>
-            <View style={[styles.recordIcon, styles.stopIcon]} />
-          </Pressable>
-        ) : (
-          <Pressable
-            style={[styles.recordButton]}
-            onPress={async () => (await StartRecording())}
-          >
-            <View style={[styles.recordIcon]} />
-          </Pressable>
-        )}
-    <Button title='Enregistrer' color='blue' onPress={saveRecording}
-     />
-    <Button title='Delete all' onPress={() => dispatch(logout())} />
-  
-     
+      <View style={styles.viewContainer}>
+          {IsRecording ? (
+              <Pressable style={[styles.recordButton]} onPress={StopRecording}>
+                <View style={[styles.recordIcon, styles.stopIcon]} />
+              </Pressable>
+            ) : (
+              <Pressable
+                style={[styles.recordButton]}
+                onPress={async () => (await StartRecording())}
+              >
+                <View style={[styles.recordIcon]} />
+              </Pressable>
+            )}
+             <Button
+          title={IsRecording ? "Stop Recording" : "Start Recording"}
+          color={IsRecording ? "red" : "green"}
+          onPress={IsRecording ? StopRecording : StartRecording}
+        />
+        <Button
+          title={IsPLaying ? "Stop Sound" : "Play Sound"}
+          color={IsPLaying ? "red" : "orange"}
+          onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
+        />
+        <Button title='Enregistrer' color='blue' onPress={saveRecording} />
+        <Button title='Delete all' onPress={() => dispatch(logout())} />
+    </View>
    </SafeAreaView>
    );
 }
@@ -155,9 +154,14 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center',
       backgroundColor: colors.background,
+      padding: 10,
 
+   },
+   viewContainer: {
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
    },
    butonsContainer: {
     height: '80%',

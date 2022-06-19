@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../core/theme';
-import { playSample } from '../utils/expoAudio';
+import { playSample} from '../utils/expoAudio';
 import { removeSample } from '../redux/samplesSlice';
 import { useDispatch } from 'react-redux';
 
@@ -53,7 +53,11 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  smallButton: { width: 40, height: 40, marginTop: 10 },
+  smallButton: { 
+    width: 40, 
+    height: 40, 
+    marginTop: 10 
+  },
 
   
   

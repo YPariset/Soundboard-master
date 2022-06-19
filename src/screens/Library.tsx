@@ -4,13 +4,17 @@ import { useSelector } from 'react-redux';
 import { SampleSelector } from '../redux/samplesSlice';
 import { colors } from '../core/theme';
 import { OptionButton } from '../components/OptionButton';
+import { useDispatch } from 'react-redux';
+import { playSample, formatDuration } from '../utils/expoAudio';
 
 
 export default function Library() {
   const [selectedId, setSelectedId] = useState(null);
   const samples = useSelector(SampleSelector);
+  const dispatch = useDispatch();
 
   const [searchTextInput, setSearchTextInput] = useState('');
+
   
 
   function filterSound(list: any[]) {
@@ -28,18 +32,18 @@ export default function Library() {
  
     return (
         <TouchableOpacity
-        onPress={() => {''}}
+        onPress={() => playSample(item)}
         onLongPress={() => ('')}
         activeOpacity={0.8}
         style={[{ flex: 1, paddingVertical: 7,  alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', }]}
       >
         <Image
-          style={{ width: 52, height: 52, borderRadius: 6 }}
-          source={{ uri: "https://docs.ypariset.fr/img/default-avatar.jpeg" }}
+          style={{ width: 45, height: 45, borderRadius: 6, marginLeft: 5 }}
+          source={{ uri: item.image }}
         />
         <View style={{ flex: 1, marginHorizontal: 14 }}>
           <Text style={[{ marginBottom: 4, color: '#fff', fontSize: 16, }]}>{item.title}</Text>
-          <Text style={[{  color: '#bbb',fontSize: 12}]}>'02:44' • {item.title}</Text>
+          <Text style={[{  color: '#bbb',fontSize: 12}]}>{formatDuration(item.duration)} • {item.type}</Text>
         </View>
         <OptionButton item={item}></OptionButton>
       </TouchableOpacity >
