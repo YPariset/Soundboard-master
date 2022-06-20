@@ -39,7 +39,7 @@ updateSample: (state, action) => {
     ele.id === action.payload.id ? { ...ele, title: action.payload.title } : ele
   );
 },
- logout: (payload) => {
+ reset: (payload) => {
   // in rootReducer, we can use it to CLEAR the complete Redux Store's state
 },
 },
@@ -50,7 +50,7 @@ export const {
   addSample, 
   removeSample,
   updateSample, 
-  logout,
+  reset,
 } = samplesSlice.actions;
 export const SampleSelector = (state) => state.samples;
 

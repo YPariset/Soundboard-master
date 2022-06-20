@@ -11,7 +11,7 @@ const combinedReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-   if (action.type === 'samples/logout') {
+   if (action.type === 'samples/reset' || action.type === 'soundboard/resetBoard' ) {
      state = undefined;
    }
    return combinedReducer(state, action);

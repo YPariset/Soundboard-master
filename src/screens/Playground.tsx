@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, FlatList, Pressable, Text, } from 'react-native';
-import { useSelector } from 'react-redux';
+import { StyleSheet, View, SafeAreaView, FlatList, Pressable, Text, Button } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { playSample } from '../utils/expoAudio';
 import { colors } from '../core/theme';
 import { SoundboardSelector } from '../redux/soundboardSlice';
+import { reset } from '../redux/samplesSlice';
+import Modal from "react-native-modal";
 
 export default function Playground() {
   const [selectedId, setSelectedId] = useState(null);
   const samples = useSelector(SoundboardSelector);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const renderItem = ({ item }) => {
     let shadowColor: string;
@@ -21,15 +25,18 @@ export default function Playground() {
   }
   
     const Item = ({shadowColor}) => (
-      <Pressable onPress={() => {playSample(item), setSelectedId(item.id)}} style={[styles.pad, shadowColor]}>
+      <Pressable 
+      onPress={() => {playSample(item), setSelectedId(item.id)}} 
+      style={[styles.pad, shadowColor]}
+      onLongPress={() => {setModalVisible(!isModalVisible)}}>
         <Text style={[styles.text]}>{item.type}</Text>
       </Pressable>
     );
 
     return (
-          <Item
+        <Item
           shadowColor={{shadowColor}}
-          />
+        />  
     );
   };
 
@@ -48,6 +55,14 @@ export default function Playground() {
           numColumns={3}
           />
         </View>
+        <Modal isVisible={isModalVisible}  onBackdropPress={() => setModalVisible(false)}>
+          <View style={styles.modal}>
+            <Text style={styles.text}>Not implemented yet</Text>
+            <View style={{marginTop: 20}}>
+              <Button title='Reset store' color={colors.red} onPress={() => {dispatch(reset()), setModalVisible(!isModalVisible)}} />
+            </View>
+          </View>
+        </Modal>
     </SafeAreaView>
   );
 }
@@ -93,6 +108,14 @@ const styles = StyleSheet.create({
   viewTitle: {
     padding: 5,
     marginBottom: 5
-  }
+  },
+  modal: {
+    backgroundColor: colors.background, 
+    alignItems:'center', 
+    justifyContent:'center', 
+    height:'auto',
+    borderRadius: 15,
+    padding: 20,
+  },
 });
 

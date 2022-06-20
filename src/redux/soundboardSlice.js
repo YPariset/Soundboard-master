@@ -39,7 +39,7 @@ updateSoundboard: (state, action) => {
     ele.id === action.payload.id ? action.payload : ele
   );
 },
- reset: (payload) => {
+ resetBoard: (payload) => {
   // in rootReducer, we can use it to CLEAR the complete Redux Store's state
 },
 },
@@ -50,7 +50,7 @@ export const {
   addToSoundboard, 
   removeFromSoundboard,
   updateSoundboard, 
-  reset,
+  resetBoard,
 } = soundboardSlice.actions;
 export const SoundboardSelector = (state) => state.soundboard;
 

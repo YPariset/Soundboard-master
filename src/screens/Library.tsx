@@ -18,7 +18,7 @@ export default function Library() {
       return list
     }
     return list.filter((item) => {
-      let itemLowerCase = item.title.toLowerCase();
+      let itemLowerCase = item.type.toLowerCase();
       let searchItemToLowerCase = searchTextInput.toLowerCase();
       return itemLowerCase.indexOf(searchItemToLowerCase) > -1;
     });
@@ -56,7 +56,7 @@ export default function Library() {
           style={[styles.textInput, { flex: 1, marginHorizontal: 10 }]}
           onChangeText={setSearchTextInput}
           value={searchTextInput}
-          placeholder="Search..."
+          placeholder="Search by type..."
           placeholderTextColor="#444"
         />
         <TouchableOpacity

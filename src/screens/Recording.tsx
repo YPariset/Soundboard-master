@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Button, Pressable, SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import { Audio } from 'expo-av';
-import { addSample, logout, SampleSelector } from '../redux/samplesSlice';
+import { addSample, SampleSelector } from '../redux/samplesSlice';
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSystem from 'expo-file-system';
 import { colors } from '../core/theme';
