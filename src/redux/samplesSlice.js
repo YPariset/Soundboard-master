@@ -36,7 +36,7 @@ removeSample: (state, action) => {
 },
 updateSample: (state, action) => {
   return state.map((ele) =>
-    ele.id === action.payload.id ? action.payload : ele
+    ele.id === action.payload.id ? { ...ele, title: action.payload.title } : ele
   );
 },
  logout: (payload) => {

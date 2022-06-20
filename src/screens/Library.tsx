@@ -1,21 +1,17 @@
 import React, { useState} from 'react';
-import { StyleSheet, View, Keyboard, SafeAreaView, FlatList, Pressable, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Keyboard, SafeAreaView, FlatList, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { SampleSelector } from '../redux/samplesSlice';
 import { colors } from '../core/theme';
 import { OptionButton } from '../components/OptionButton';
-import { useDispatch } from 'react-redux';
 import { playSample, formatDuration } from '../utils/expoAudio';
 
 
 export default function Library() {
   const [selectedId, setSelectedId] = useState(null);
   const samples = useSelector(SampleSelector);
-  const dispatch = useDispatch();
 
   const [searchTextInput, setSearchTextInput] = useState('');
-
-  
 
   function filterSound(list: any[]) {
     if(searchTextInput.length === 0) {

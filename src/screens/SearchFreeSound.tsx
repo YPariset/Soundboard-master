@@ -90,7 +90,7 @@ export default function SearchFreeSound() {
             <Ionicons name={'add-circle'} size={20} color={colors.green} />
             <Modal isVisible={isAddModalVisible} onBackdropPress={() => setAddModalVisible(false)}>
               <View style={styles.modal}>
-                  <Text style={styles.text}>added to the library !</Text>
+                  <Text style={styles.textModal}>added to the library !</Text>
               </View>
             </Modal>
         </Pressable>
@@ -183,16 +183,10 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       padding: 20,
     },
-    text: {
+    textModal: {
       color: '#fff',
       fontSize: 17,
       fontWeight: 'bold' 
     },
-    buttonView: {
-      marginTop: 10,
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-around'
-    }
     });
 

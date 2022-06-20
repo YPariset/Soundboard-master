@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, View, Text, Button} from 'react-native';
+import { Pressable, StyleSheet, View, Text, Button, TextInput} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../core/theme';
-import { removeSample } from '../redux/samplesSlice';
+import { removeSample, updateSample } from '../redux/samplesSlice';
 import { useDispatch } from 'react-redux';
 import { addToSoundboard } from '../redux/soundboardSlice';
 import Modal from "react-native-modal";
@@ -12,8 +12,16 @@ export function OptionButton({ item }) {
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const [isAddModalVisible, setAddModalVisible] = useState(false);
-
+  const [newTitle, setNewTitle] = useState(item.title);
   const dispatch = useDispatch();
+  const newItem = {
+    id: item.id,
+    title: newTitle,
+    link: item.link,
+    image: item.image,
+    type: item.type,
+    duration: item.duration
+  }
   
   const renderOptions = () => {
       if (optionOpen) {
@@ -36,6 +44,11 @@ export function OptionButton({ item }) {
               <Modal isVisible={isEditModalVisible}  onBackdropPress={() => setEditModalVisible(false)}>
                 <View style={styles.modal}>
                   <Text style={styles.text}>Edit Modal</Text>
+                  <TextInput style={styles.textInput} placeholder='Titre' value={newTitle} onChangeText={setNewTitle} />
+                  <View style={styles.buttonView}>
+                    <Button title="cancel" color={colors.orange} onPress={() =>  setEditModalVisible(!isEditModalVisible)} />
+                    <Button title="Yes" color={colors.green} onPress={() => {dispatch(updateSample(newItem)),  console.log(newTitle, item.title), setEditModalVisible(!isEditModalVisible)}} />
+                  </View>
                 </View>
               </Modal>
             </Pressable>
@@ -89,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems:'center', 
     justifyContent:'center', 
     height:'auto',
-    borderRadius: 10,
+    borderRadius: 15,
     padding: 20,
   },
   text: {
@@ -102,5 +115,14 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  textInput:{
+    backgroundColor: colors.light.background,
+    marginTop: 20,
+    width: 180,
+    height: 35,
+    borderRadius: 8,
+    paddingLeft: 8,
+    color: colors.green
   }
 });

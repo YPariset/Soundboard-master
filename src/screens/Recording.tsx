@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, Button, Pressable, SafeAreaView, Text} from 'react-native';
+import { View, StyleSheet, Button, Pressable, SafeAreaView, Text, TouchableOpacity} from 'react-native';
 import { Audio } from 'expo-av';
 import { addSample, logout, SampleSelector } from '../redux/samplesSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ export default function Recording() {
 
   const [AudioPermission, SetAudioPermission] = useState(false);
   const [IsRecording, SetIsRecording] = useState(false);
+  const [IsDisable, SetIsDisable] = useState(false);
   const [IsPLaying, SetIsPLaying] = useState(false);
 
   const recordsFolder = FileSystem.documentDirectory + 'recording/';
@@ -43,6 +44,7 @@ export default function Recording() {
          );
          await AudioRecorder.current.startAsync();
          SetIsRecording(true);
+         SetIsDisable(true);
        } catch (error) {
          console.log(error);
        }
@@ -136,18 +138,20 @@ export default function Recording() {
                 <View style={[styles.recordIcon]} />
               </Pressable>
             )}
-             <Button
-          title={IsRecording ? "Stop Recording" : "Start Recording"}
-          color={IsRecording ? "red" : "green"}
-          onPress={IsRecording ? StopRecording : StartRecording}
-        />
-        <Button
-          title={IsPLaying ? "Stop Sound" : "Play Sound"}
-          color={IsPLaying ? "red" : "orange"}
-          onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
-        />
-        <Button title='Enregistrer' color='blue' onPress={saveRecording} />
-        <Button title='Delete all' onPress={() => dispatch(logout())} />
+          <View style={{marginTop: 60}}>
+          <Button
+            disabled={!IsDisable}
+            title={IsPLaying ? "Stop Sound" : "Play Sound"}
+            color={IsPLaying ? "red" : "orange"}
+            onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
+          />
+          <Button 
+            disabled={!IsDisable} 
+            title='Enregistrer' 
+            color={colors.green} 
+            onPress={saveRecording} 
+          />
+          </View>
     </View>
    </SafeAreaView>
    );
@@ -195,5 +199,5 @@ const styles = StyleSheet.create({
   },
   viewTitle: {
     padding: 5,
-  }
+  },
 });
