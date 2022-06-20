@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, SafeAreaView, FlatList, Pressable, Text, } from 'react-native';
 import { useSelector } from 'react-redux';
-import { SampleSelector } from '../redux/samplesSlice';
 import { playSample } from '../utils/expoAudio';
 import { colors } from '../core/theme';
-
+import { SoundboardSelector } from '../redux/soundboardSlice';
 
 export default function Playground() {
   const [selectedId, setSelectedId] = useState(null);
-  const samples = useSelector(SampleSelector);
+  const samples = useSelector(SoundboardSelector);
 
   const renderItem = ({ item }) => {
     let shadowColor: string;
@@ -36,7 +35,9 @@ export default function Playground() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Playground</Text>
+      <View style={styles.viewTitle}>
+        <Text style={styles.title}>Playground</Text>
+      </View>
       <View style={styles.viewContainer}>
         <FlatList
           style={styles.flatList}
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   },
   flatList:{
     width: 'auto',
-    paddingTop: 20,
+    paddingTop: 10,
   },
   pad: {
     backgroundColor: colors.light.background,
@@ -88,6 +89,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 32,
     fontWeight: 'bold' 
-}
+},
+  viewTitle: {
+    padding: 5,
+    marginBottom: 5
+  }
 });
 

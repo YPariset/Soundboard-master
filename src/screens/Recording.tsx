@@ -11,7 +11,7 @@ export default function Recording() {
   const AudioRecorder = useRef(new Audio.Recording());
   const AudioPlayer = useRef(new Audio.Sound());
 
-  const [uri, setUri] = useState("");
+  const [uri, setUri] = useState('');
 
   const [AudioPermission, SetAudioPermission] = useState(false);
   const [IsRecording, SetIsRecording] = useState(false);
@@ -55,7 +55,7 @@ export default function Recording() {
   const StopRecording = async () => {
    try {
      await AudioRecorder.current.stopAndUnloadAsync();
-
+    
      const result = AudioRecorder.current.getURI();
      setUri(AudioRecorder.current.getURI());
      if (result) setUri(result);
@@ -94,10 +94,10 @@ export default function Recording() {
     const dataFolder = await FileSystem.getInfoAsync(recordsFolder);
     let known = dataFolder.exists;
     if (!known) {
-        console.log("Folder not found");
+        console.log('Folder not found');
         try {
-            await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "recording");
-            console.log("New folder created");
+            await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'recording');
+            console.log('New folder created');
         } catch (error) {
             console.log(error);
         }
@@ -112,14 +112,17 @@ export default function Recording() {
      id: new_id_item,
      title: 'recording-' + new_id_item  + '.wav',
      link: recordsFolder + 'recording-' + new_id_item + '.wav',
-     type: "recording",
-     image: "../../assets/image-default.jpeg"
+     type: 'recording',
+     duration: 'none',
+     image: 'https://docs.ypariset.fr/img/recording.png'
    }));
  }
    
    return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Recording</Text>
+      <View style={styles.viewTitle}>
+        <Text style={styles.title}>Recording</Text>
+      </View>
       <View style={styles.viewContainer}>
           {IsRecording ? (
               <Pressable style={[styles.recordButton]} onPress={StopRecording}>
@@ -151,19 +154,18 @@ export default function Recording() {
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      alignItems: 'center',
-      backgroundColor: colors.background,
-      padding: 10,
-
-   },
-   viewContainer: {
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    padding: 10,
+  },
+  viewContainer: {
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-   },
-   butonsContainer: {
+  },
+  butonsContainer: {
     height: '80%',
   },
   recordButton: {
@@ -190,5 +192,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 32,
     fontWeight: 'bold' 
-}
+  },
+  viewTitle: {
+    padding: 5,
+  }
 });

@@ -1,17 +1,20 @@
 import React, { useState, useEffect} from 'react';
-import { StyleSheet, View, Keyboard, SafeAreaView, FlatList, Text, TextInput, Image, TouchableOpacity, Pressable } from 'react-native';
+import { StyleSheet, View, Keyboard, SafeAreaView, FlatList, Text, TextInput, Image, TouchableOpacity, Pressable, Button } from 'react-native';
 import { colors } from '../core/theme';
 import { useDebounce } from 'use-debounce';
 import { playSample, formatDuration } from '../utils/expoAudio';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
 import { addSample } from '../redux/samplesSlice';
+import Modal from "react-native-modal";
+
 
 export default function SearchFreeSound() {
   const [selectedId, setSelectedId] = useState(null);
   const [searchInput, setSearchInput] = useState('');
   const [searchInputDebounce] = useDebounce(searchInput, 400);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAddModalVisible, setAddModalVisible] = useState(false);
   const [sounds, setSounds] = useState([]);
   const dispatch = useDispatch();
   
@@ -83,8 +86,13 @@ export default function SearchFreeSound() {
           <Text style={[{ marginBottom: 4, color: '#fff', fontSize: 16, }]}>{item.title}</Text>
           <Text style={[{  color: '#bbb',fontSize: 12}]}>{formatDuration(item.duration)}</Text>
         </View>
-        <Pressable style={[styles.smallButton]} onPress={() => dispatch(addSample(item))}>
+        <Pressable style={[styles.smallButton]} onPress={() => {dispatch(addSample(item)), setAddModalVisible(!isAddModalVisible)}}>
             <Ionicons name={'add-circle'} size={20} color={colors.green} />
+            <Modal isVisible={isAddModalVisible} onBackdropPress={() => setAddModalVisible(false)}>
+              <View style={styles.modal}>
+                  <Text style={styles.text}>added to the library !</Text>
+              </View>
+            </Modal>
         </Pressable>
       </TouchableOpacity >
     );
@@ -92,7 +100,9 @@ export default function SearchFreeSound() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.viewTitle}>
         <Text style={styles.title}>Search</Text>
+      </View>
         <View style={[styles.searchInput, { marginTop: 20 }]}>
         <TextInput
           style={[styles.textInput, { flex: 1, marginHorizontal: 10 }]}
@@ -155,10 +165,34 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: 'bold' 
     },
+    viewTitle: {
+      padding: 5,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
     smallButton: { 
       width: 40, 
       height: 40, 
       marginTop: 10 
     },
+    modal: {
+      backgroundColor: colors.background, 
+      alignItems:'center', 
+      justifyContent:'center', 
+      height:'auto',
+      borderRadius: 10,
+      padding: 20,
+    },
+    text: {
+      color: '#fff',
+      fontSize: 17,
+      fontWeight: 'bold' 
+    },
+    buttonView: {
+      marginTop: 10,
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-around'
+    }
     });
 

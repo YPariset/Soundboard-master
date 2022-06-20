@@ -52,7 +52,9 @@ export default function Library() {
 
   return (
     <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Library</Text>
+        <View style={styles.viewTitle}>
+          <Text style={styles.title}>Library</Text>
+        </View>
         <View style={[styles.searchInput, { marginTop: 20 }]}>
         <TextInput
           style={[styles.textInput, { flex: 1, marginHorizontal: 10 }]}
@@ -114,6 +116,11 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 32,
         fontWeight: 'bold' 
+    },
+    viewTitle: {
+      padding: 5,
+      alignItems: 'center',
+      justifyContent: 'center'
     }
     });
 

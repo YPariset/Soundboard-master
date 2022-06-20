@@ -3,9 +3,11 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import sampleReducer from './src/redux/samplesSlice';
+import soundboardReducer from './src/redux/soundboardSlice';
 
 const combinedReducer = combineReducers({
    samples: sampleReducer,
+   soundboard: soundboardReducer
 });
 
 const rootReducer = (state, action) => {

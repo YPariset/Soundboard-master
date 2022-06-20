@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const samplesSlice = createSlice({
-   name: 'samples',
+export const soundboardSlice = createSlice({
+   name: 'soundboard',
   initialState: [
     { id: 1, title: 'clap_1', link: require('../../assets/samples/clap_1.wav'), image: 'https://docs.ypariset.fr/img/sample.png', duration: 2.46, type: 'default'},
     { id: 2, title: 'clap_2', link: require('../../assets/samples/clap_2.wav'), image: 'https://docs.ypariset.fr/img/sample.png', duration: 1.12, type: 'default'},
@@ -21,7 +21,7 @@ export const samplesSlice = createSlice({
 
 ],
 reducers: {
-  addSample: (state, action ) => {
+  addToSoundboard: (state, action ) => {
      return [...state, {
          id: action.payload.id,
          title: action.payload.title,
@@ -31,15 +31,15 @@ reducers: {
          duration: action.payload.duration
      }];
  },
-removeSample: (state, action) => {
+removeFromSoundboard: (state, action) => {
   return state.filter((el) => el.id != action.payload.id);
 },
-updateSample: (state, action) => {
+updateSoundboard: (state, action) => {
   return state.map((ele) =>
     ele.id === action.payload.id ? action.payload : ele
   );
 },
- logout: (payload) => {
+ reset: (payload) => {
   // in rootReducer, we can use it to CLEAR the complete Redux Store's state
 },
 },
@@ -47,11 +47,11 @@ updateSample: (state, action) => {
 
 
 export const { 
-  addSample, 
-  removeSample,
-  updateSample, 
-  logout,
-} = samplesSlice.actions;
-export const SampleSelector = (state) => state.samples;
+  addToSoundboard, 
+  removeFromSoundboard,
+  updateSoundboard, 
+  reset,
+} = soundboardSlice.actions;
+export const SoundboardSelector = (state) => state.soundboard;
 
-export default samplesSlice.reducer;
+export default soundboardSlice.reducer;
