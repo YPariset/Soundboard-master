@@ -6,9 +6,8 @@
 The goal of this project is to implement a simplified virtual version of a physical sampler / sequencer. These systems allow live play of a bank of pre-recorded sounds through the use of a grid of pads. In their simplest version, these machines can only be used in their sampler version: the samples can be played by pressing the pads, like a synthesizer, but more advanced versions allow a sequencer type use (the user can create/edit loop played repeatedly in order to create rhythms/patterns).
 
 # Model / Design
+![]('./../assets/model.png)
 
-
-//image
 
 
 - **Playground** : This is the home screen which in the form of pads integrates the different samples added from the library. A simple click, and the playback of the sound will launch. I added on this screen the possibility to empty the redux store via a long press on one of the items.
@@ -49,13 +48,24 @@ I used the expo-av library to play with sounds and generate an audio object same
 
 # Functionnality 
 
-- Persisted storage
-- Playing samples
-- Add freesound to library
-- Add recording to library
-- Add item library to soundboard
-- Edit name (more to come...)
-- SearchByType samples
+- Persisted storage ✅
+- Playing samples ✅
+- Add freesound to library ✅
+- Add recording to library ✅
+- Add item library to soundboard ✅
+- Edit name (more to come...) ✅
+- SearchByType samples ✅
+
+- Edit all ❌
+- Cropping sample ❌
+- Stop current sound ❌
+
+
+# Setup
+1.  `yarn` to install all the dependencies
+
+2.  `yarn start` to run expo
+
 
 
 
