@@ -24,23 +24,18 @@ Concerning the architecture of the application, as often I dissociate screens, c
 The **src** directory is structured like this:
 
 - **components** : It contains all the components that can be used several times.
-- **core** : It only contains a theme.js file which allows me to reference all the colors of my application.
+- **core** : It only contains a `theme.js` file which allows me to reference all the colors of my application.
 - **redux** : This directory contains all the Redux slices.
 - **screens** : This is where we find the 4 screens of the model.
 - **utils** : Some features/services that the application needs.
 
-As expected, I used the Redux store to store the samples. A slice is used to store the samples of the soundboard and the other manages the samples of the library, in both slices the data is stored in an object which has several attributes:
-- id
-- name
-- link
-- image
-- type
-- duration
+As expected, I used the Redux store to store the samples. A slice is used to store the samples of the soundboard and the other manages the samples of the library, in both slices the data is stored in an object which has several attributes: `id`, `name`, `link`, `image`, `type`, `duration`
 
 
 ## Libs
 
 For navigation between views I decided to use the TabBar from **@react-navigation**, simple to set up and efficient.
+
 I used the expo-av library to play with sounds and generate an audio object same than samples.
 
 ⚠️ In order to save a vocal recording I used th **expo-file-system** library able to provides access to a file system stored locally on the device. Unfortunately this library is not compatible on the web therefore the functionality of saving a voice recording does not work on the web. I'll take a closer look soon.
