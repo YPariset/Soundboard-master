@@ -5,7 +5,7 @@
 
 The goal of this project is to implement a simplified virtual version of a physical sampler / sequencer. These systems allow live play of a bank of pre-recorded sounds through the use of a grid of pads. In their simplest version, these machines can only be used in their sampler version: the samples can be played by pressing the pads, like a synthesizer, but more advanced versions allow a sequencer type use (the user can create/edit loop played repeatedly in order to create rhythms/patterns).
 
-# Model / Design
+## Model / Design
 ![]('./../assets/model.png)
 
 
@@ -16,7 +16,7 @@ The goal of this project is to implement a simplified virtual version of a physi
 - **Search** : This screen allows the search for a sample by keyword using the freesound API with the possibility of adding an item in the library.
 
 
-# Architecture 
+## Architecture 
 
 For this project, I decided to use typescript to get started with this language, I didn't exploited it enough but it was still a good discovery.
 Concerning the architecture of the application, as often I dissociate screens, components and services (although there is still many optimization to be done).
@@ -38,7 +38,7 @@ As expected, I used the Redux store to store the samples. A slice is used to sto
 - duration
 
 
-# Libs
+## Libs
 
 For navigation between views I decided to use the TabBar from **@react-navigation**, simple to set up and efficient.
 I used the expo-av library to play with sounds and generate an audio object same than samples.
@@ -46,7 +46,7 @@ I used the expo-av library to play with sounds and generate an audio object same
 ⚠️ In order to save a vocal recording I used th **expo-file-system** library able to provides access to a file system stored locally on the device. Unfortunately this library is not compatible on the web therefore the functionality of saving a voice recording does not work on the web. I'll take a closer look soon.
 
 
-# Functionnality 
+## Functionnality 
 
 - Persisted storage ✅
 - Playing samples ✅
